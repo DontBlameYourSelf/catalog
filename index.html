@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Tools Catalog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, rgba(20, 20, 30, 0.9) 0%, rgba(10, 10, 20, 0.9) 100%);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 3.5em;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #00d4ff, #7b2cbf, #00d4ff);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 3s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 15px 40px;
+            background: rgba(30, 30, 40, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #e0e0e0;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .tab-btn:hover {
+            background: rgba(50, 50, 60, 0.9);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #00d4ff 0%, #7b2cbf 100%);
+            border-color: transparent;
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 25px;
+            background: rgba(30, 30, 40, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: #e0e0e0;
+            font-size: 1.05em;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .tool-card {
+            background: linear-gradient(135deg, rgba(30, 30, 40, 0.9) 0%, rgba(20, 20, 30, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.05), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .tool-card:hover::before {
+            left: 100%;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .tool-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .tool-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+        }
+
+        .tool-name {
+            font-size: 1.3em;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .tool-description {
+            color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .tool-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 8px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s ease;
+        }
+
+        .tool-link:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateX(5px);
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: rgba(123, 44, 191, 0.2);
+            border: 1px solid rgba(123, 44, 191, 0.4);
+            border-radius: 6px;
+            font-size: 0.8em;
+            color: #b794f6;
+            margin-top: 10px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            font-size: 0.95em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CYBERSECURITY TOOLS</h1>
+            <p class="subtitle">Professional Arsenal for Security Specialists</p>
+        </div>
+
+        <div class="search-box">
+            <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search tools...">
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="showTab('osint')">OSINT Tools</button>
+            <button class="tab-btn" onclick="showTab('pentest')">Pentesting Tools</button>
+            <button class="tab-btn" onclick="showTab('ctf')">CTF Platforms</button>
+        </div>
+
+        <div id="osint" class="tab-content active">
+            <div class="tools-grid" id="osintGrid"></div>
+        </div>
+
+        <div id="pentest" class="tab-content">
+            <div class="tools-grid" id="pentestGrid"></div>
+        </div>
+
+        <div id="ctf" class="tab-content">
+            <div class="tools-grid" id="ctfGrid"></div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 Cybersecurity Tools Catalog | For Educational Purposes Only</p>
+        </div>
+    </div>
+
+    <script>
+        const osintTools = [
+            { name: "Maltego", icon: "🕸️", desc: "Data mining and link analysis tool for OSINT investigations", url: "https://www.maltego.com/", category: "Analysis" },
+            { name: "theHarvester", icon: "🌾", desc: "E-mail, subdomain and people names harvester", url: "https://github.com/laramies/theHarvester", category: "Reconnaissance" },
+            { name: "Shodan", icon: "🔍", desc: "Search engine for Internet-connected devices", url: "https://www.shodan.io/", category: "Search Engine" },
+            { name: "Recon-ng", icon: "🎯", desc: "Full-featured reconnaissance framework", url: "https://github.com/lanmaster53/recon-ng", category: "Framework" },
+            { name: "SpiderFoot", icon: "🕷️", desc: "Automated OSINT collection tool", url: "https://www.spiderfoot.net/", category: "Automation" },
+            { name: "OSINT Framework", icon: "📊", desc: "Collection of OSINT tools and resources", url: "https://osintframework.com/", category: "Directory" },
+            { name: "Censys", icon: "🌐", desc: "Search engine for internet-wide scans", url: "https://censys.io/", category: "Search Engine" },
+            { name: "Hunter.io", icon: "📧", desc: "Email finder and verifier tool", url: "https://hunter.io/", category: "Email" },
+            { name: "Dehashed", icon: "🔓", desc: "Search engine for leaked databases", url: "https://dehashed.com/", category: "Breach Data" },
+            { name: "Have I Been Pwned", icon: "💾", desc: "Check if your email has been compromised", url: "https://haveibeenpwned.com/", category: "Breach Check" },
+            { name: "Wayback Machine", icon: "⏰", desc: "Internet archive for historical website versions", url: "https://archive.org/web/", category: "Archive" },
+            { name: "DNSdumpster", icon: "🗺️", desc: "DNS reconnaissance and research tool", url: "https://dnsdumpster.com/", category: "DNS" },
+            { name: "Whois Lookup", icon: "📋", desc: "Domain registration information", url: "https://whois.domaintools.com/", category: "Domain" },
+            { name: "BuiltWith", icon: "🔧", desc: "Website technology profiler", url: "https://builtwith.com/", category: "Technology" },
+            { name: "Wigle", icon: "📡", desc: "Wireless network mapping", url: "https://wigle.net/", category: "WiFi" },
+            { name: "IntelTechniques", icon: "🧰", desc: "Custom OSINT search tools", url: "https://inteltechniques.com/", category: "Tools" },
+            { name: "Social-Searcher", icon: "📱", desc: "Social media search engine", url: "https://www.social-searcher.com/", category: "Social Media" },
+            { name: "Pipl", icon: "👤", desc: "People search engine", url: "https://pipl.com/", category: "People" },
+            { name: "TinEye", icon: "🖼️", desc: "Reverse image search engine", url: "https://tineye.com/", category: "Image" },
+            { name: "Google Dorks", icon: "🔎", desc: "Advanced Google search operators", url: "https://www.exploit-db.com/google-hacking-database", category: "Search" },
+            { name: "Metabigor", icon: "🎪", desc: "OSINT framework for various sources", url: "https://github.com/j3ssie/metabigor", category: "Framework" },
+            { name: "Creepy", icon: "📍", desc: "Geolocation OSINT tool", url: "https://github.com/ilektrojohn/creepy", category: "Geolocation" },
+            { name: "Metagoofil", icon: "📄", desc: "Metadata harvester for documents", url: "https://github.com/laramies/metagoofil", category: "Metadata" },
+            { name: "Skiptracer", icon: "🔦", desc: "OSINT scraping framework", url: "https://github.com/xillwillx/skiptracer", category: "Framework" },
+            { name: "Photon", icon: "⚡", desc: "Fast web crawler for OSINT", url: "https://github.com/s0md3v/Photon", category: "Crawler" },
+            { name: "Sublist3r", icon: "🎯", desc: "Subdomain enumeration tool", url: "https://github.com/aboul3la/Sublist3r", category: "Enumeration" },
+            { name: "Amass", icon: "🗺️", desc: "In-depth attack surface mapping", url: "https://github.com/OWASP/Amass", category: "Mapping" },
+            { name: "Twint", icon: "🐦", desc: "Twitter intelligence tool", url: "https://github.com/twintproject/twint", category: "Social Media" },
+            { name: "Sherlock", icon: "🕵️", desc: "Hunt social media accounts by username", url: "https://github.com/sherlock-project/sherlock", category: "Social Media" },
+            { name: "Phoneinfoga", icon: "📞", desc: "Phone number OSINT tool", url: "https://github.com/sundowndev/phoneinfoga", category: "Phone" },
+            { name: "GHunt", icon: "🎯", desc: "Google account OSINT tool", url: "https://github.com/mxrch/GHunt", category: "Google" },
+            { name: "LinkedIn2Username", icon: "💼", desc: "Generate corporate usernames from LinkedIn", url: "https://github.com/initstring/linkedin2username", category: "Username" },
+            { name: "Buscador", icon: "🔍", desc: "Linux VM for OSINT investigations", url: "https://inteltechniques.com/buscador/", category: "VM" },
+            { name: "Netlas", icon: "🌐", desc: "Internet search engine for assets", url: "https://netlas.io/", category: "Search Engine" },
+            { name: "FullContact", icon: "📇", desc: "Identity resolution platform", url: "https://www.fullcontact.com/", category: "Identity" }
+        ];
+
+        const pentestTools = [
+            { name: "Metasploit", icon: "💣", desc: "Penetration testing framework", url: "https://www.metasploit.com/", category: "Framework" },
+            { name: "Burp Suite", icon: "🕷️", desc: "Web application security testing", url: "https://portswigger.net/burp", category: "Web" },
+            { name: "Nmap", icon: "🗺️", desc: "Network discovery and security auditing", url: "https://nmap.org/", category: "Scanning" },
+            { name: "Wireshark", icon: "🦈", desc: "Network protocol analyzer", url: "https://www.wireshark.org/", category: "Analysis" },
+            { name: "SQLmap", icon: "💉", desc: "Automatic SQL injection tool", url: "https://sqlmap.org/", category: "Web" },
+            { name: "John the Ripper", icon: "🔓", desc: "Password cracking tool", url: "https://www.openwall.com/john/", category: "Cracking" },
+            { name: "Hydra", icon: "🐉", desc: "Network logon cracker", url: "https://github.com/vanhauser-thc/thc-hydra", category: "Cracking" },
+            { name: "Aircrack-ng", icon: "📡", desc: "WiFi security auditing tool", url: "https://www.aircrack-ng.org/", category: "Wireless" },
+            { name: "Nikto", icon: "🔍", desc: "Web server scanner", url: "https://github.com/sullo/nikto", category: "Web" },
+            { name: "OWASP ZAP", icon: "⚡", desc: "Web application security scanner", url: "https://www.zaproxy.org/", category: "Web" },
+            { name: "Hashcat", icon: "🐱", desc: "Advanced password recovery", url: "https://hashcat.net/hashcat/", category: "Cracking" },
+            { name: "Gobuster", icon: "👻", desc: "Directory and DNS busting tool", url: "https://github.com/OJ/gobuster", category: "Enumeration" },
+            { name: "Responder", icon: "🎣", desc: "LLMNR, NBT-NS and MDNS poisoner", url: "https://github.com/lgandx/Responder", category: "Network" },
+            { name: "Mimikatz", icon: "🔑", desc: "Windows credential extraction", url: "https://github.com/gentilkiwi/mimikatz", category: "Post-Exploitation" },
+            { name: "CrackMapExec", icon: "🗺️", desc: "Post-exploitation tool", url: "https://github.com/byt3bl33d3r/CrackMapExec", category: "Post-Exploitation" },
+            { name: "Empire", icon: "👑", desc: "PowerShell post-exploitation framework", url: "https://github.com/BC-SECURITY/Empire", category: "Post-Exploitation" },
+            { name: "Impacket", icon: "📦", desc: "Python network protocols library", url: "https://github.com/SecureAuthCorp/impacket", category: "Network" },
+            { name: "BloodHound", icon: "🩸", desc: "Active Directory attack path analyzer", url: "https://github.com/BloodHoundAD/BloodHound", category: "AD" },
+            { name: "Netcat", icon: "🐱", desc: "Swiss army knife of networking", url: "http://netcat.sourceforge.net/", category: "Network" },
+            { name: "Socat", icon: "🔌", desc: "Multipurpose relay tool", url: "http://www.dest-unreach.org/socat/", category: "Network" },
+            { name: "FFuf", icon: "🔥", desc: "Fast web fuzzer", url: "https://github.com/ffuf/ffuf", category: "Fuzzing" },
+            { name: "Wfuzz", icon: "🐝", desc: "Web application fuzzer", url: "https://github.com/xmendez/wfuzz", category: "Fuzzing" },
+            { name: "Subfinder", icon: "🔍", desc: "Subdomain discovery tool", url: "https://github.com/projectdiscovery/subfinder", category: "Reconnaissance" },
+            { name: "Nuclei", icon: "☢️", desc: "Fast vulnerability scanner", url: "https://github.com/projectdiscovery/nuclei", category: "Scanning" },
+            { name: "Nessus", icon: "🦂", desc: "Vulnerability assessment tool", url: "https://www.tenable.com/products/nessus", category: "Scanning" },
+            { name: "OpenVAS", icon: "🛡️", desc: "Open source vulnerability scanner", url: "https://www.openvas.org/", category: "Scanning" },
+            { name: "Bettercap", icon: "📡", desc: "Network attack and monitoring framework", url: "https://www.bettercap.org/", category: "Network" },
+            { name: "Ettercap", icon: "🎯", desc: "Network sniffer/interceptor", url: "https://www.ettercap-project.org/", category: "Network" },
+            { name: "Social Engineer Toolkit", icon: "🎭", desc: "Social engineering penetration testing", url: "https://github.com/trustedsec/social-engineer-toolkit", category: "Social Engineering" },
+            { name: "BeEF", icon: "🥩", desc: "Browser exploitation framework", url: "https://beefproject.com/", category: "Web" },
+            { name: "WPScan", icon: "🔍", desc: "WordPress security scanner", url: "https://wpscan.com/", category: "Web" },
+            { name: "Sqlninja", icon: "🥷", desc: "SQL injection exploitation tool", url: "http://sqlninja.sourceforge.net/", category: "Web" },
+            { name: "Enum4linux", icon: "🐧", desc: "Linux enumeration tool for Windows", url: "https://github.com/CiscoCXSecurity/enum4linux", category: "Enumeration" },
+            { name: "Searchsploit", icon: "💥", desc: "Exploit database search tool", url: "https://www.exploit-db.com/searchsploit", category: "Exploitation" },
+            { name: "Covenant", icon: "📜", desc: ".NET command and control framework", url: "https://github.com/cobbr/Covenant", category: "C2" }
+        ];
+
+        const ctfPlatforms = [
+            { name: "TryHackMe", icon: "🎯", desc: "Learn cybersecurity through hands-on exercises", url: "https://tryhackme.com/", category: "Learning" },
+            { name: "Hack The Box", icon: "📦", desc: "Penetration testing labs and challenges", url: "https://www.hackthebox.com/", category: "Labs" },
+            { name: "PicoCTF", icon: "🏴", desc: "Free CTF for beginners", url: "https://picoctf.org/", category: "Beginner" },
+            { name: "CTFtime", icon: "⏰", desc: "CTF archive and upcoming events", url: "https://ctftime.org/", category: "Directory" },
+            { name: "OverTheWire", icon: "🔌", desc: "Wargames to learn security concepts", url: "https://overthewire.org/", category: "Wargames" },
+            { name: "Root Me", icon: "🌱", desc: "Hacking challenges for all levels", url: "https://www.root-me.org/", category: "Challenges" },
+            { name: "VulnHub", icon: "🎪", desc: "Vulnerable virtual machines", url: "https://www.vulnhub.com/", category: "VMs" },
+            { name: "HackThisSite", icon: "🌐", desc: "Legal and safe hacking practice", url: "https://www.hackthissite.org/", category: "Practice" },
+            { name: "Pwnable.kr", icon: "🇰🇷", desc: "Non-commercial wargame site", url: "http://pwnable.kr/", category: "Wargames" },
+            { name: "Pwnable.tw", icon: "🇹🇼", desc: "Binary exploitation wargame", url: "https://pwnable.tw/", category: "Pwn" },
+            { name: "CyberDefenders", icon: "🛡️", desc: "Blue team training platform", url: "https://cyberdefenders.org/", category: "Blue Team" },
+            { name: "Blue Team Labs Online", icon: "💙", desc: "Defensive security challenges", url: "https://blueteamlabs.online/", category: "Blue Team" },
+            { name: "AttackDefense", icon: "⚔️", desc: "Hands-on InfoSec training", url: "https://attackdefense.com/", category: "Labs" },
+            { name: "PentesterLab", icon: "🧪", desc: "Learn web penetration testing", url: "https://pentesterlab.com/", category: "Web" },
+            { name: "RingZer0", icon: "⭕", desc: "CTF challenges and training", url: "https://ringzer0ctf.com/", category: "Challenges" },
+            { name: "WeChall", icon: "🏆", desc: "Challenge site ranking", url: "https://www.wechall.net/", category: "Directory" },
+            { name: "Cryptopals", icon: "🔐", desc: "Cryptography challenges", url: "https://cryptopals.com/", category: "Crypto" },
+            { name: "Exploit.Education", icon: "🎓", desc: "Learn exploitation techniques", url: "https://exploit.education/", category: "Exploitation" },
+            { name: "DVWA", icon: "🕸️", desc: "Damn Vulnerable Web Application", url: "https://dvwa.co.uk/", category: "Web" },
+            { name: "bWAPP", icon: "🐝", desc: "Buggy web application", url: "http://www.itsecgames.com/", category: "Web" },
+            { name: "WebGoat", icon: "🐐", desc: "Deliberately insecure application", url: "https://owasp.org/www-project-webgoat/", category: "Web" },
+            { name: "Juice Shop", icon: "🧃", desc: "Modern vulnerable web app", url: "https://owasp.org/www-project-juice-shop/", category: "Web" },
+            { name: "HackTheBox Academy", icon: "🎓", desc: "Structured cybersecurity courses", url: "https://academy.hackthebox.com/", category: "Learning" },
+            { name: "INE Security", icon: "🎯", desc: "Professional security training", url: "https://ine.com/", category: "Training" },
+            { name: "PortSwigger Academy", icon: "🕷️", desc: "Free web security training", url: "https://portswigger.net/web-security", category: "Web" },
+            { name: "LetsDefend", icon: "🛡️", desc: "SOC analyst training platform", url: "https://letsdefend.io/", category: "Blue Team" },
+            { name: "RangeForce", icon: "🎮", desc: "Cyber skills development platform", url: "https://www.rangeforce.com/", category: "Training" },
+            { name: "ImmersiveLabs", icon: "🧬", desc: "Hands-on cyber skills platform", url: "https://www.immersivelabs.com/", category: "Training" },
+            { name: "PentesterAcademy", icon: "🏫", desc: "Online penetration testing courses", url: "https://www.pentesteracademy.com/", category: "Training" },
+            { name: "Cybrary", icon: "📚", desc: "Cybersecurity training library", url: "https://www.cybrary.it/", category: "Learning" },
+            { name: "Offensive Security", icon: "🎯", desc: "OSCP and advanced training", url: "https://www.offensive-security.com/", category: "Training" },
+            { name: "SANS Cyber Aces", icon: "🃏", desc: "Free cybersecurity tutorials", url: "https://www.cyberaces.org/", category: "Beginner" },
+            { name: "Hacker101", icon: "💯", desc: "Free web security class", url: "https://www.hacker101.com/", category: "Web" },
+            { name: "Google Gruyere", icon: "🧀", desc: "Web application exploits tutorial", url: "https://google-gruyere.appspot.com/", category: "Web" },
+            { name: "SmashTheStack", icon: "💥", desc: "Network wargaming", url: "http://smashthestack.org/", category: "Wargames" }
+        ];
+
+        function createToolCard(tool) {
+            return `
+                <div class="tool-card" data-name="${tool.name.toLowerCase()}" data-desc="${tool.desc.toLowerCase()}" data-category="${tool.category.toLowerCase()}">
+                    <div class="tool-header">
+                        <div class="tool-icon">${tool.icon}</div>
+                        <div class="tool-name">${tool.name}</div>
+                    </div>
+                    <div class="tool-description">${tool.desc}</div>
+                    <a href="${tool.url}" class="tool-link" target="_blank">Visit Site →</a>
+                    <span class="category-badge">${tool.category}</span>
+                </div>
+            `;
+        }
+
+        function populateGrid(tools, gridId) {
+            const grid = document.getElementById(gridId);
+            grid.innerHTML = tools.map(tool => createToolCard(tool)).join('');
+        }
+
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Initialize grids
+        populateGrid(osintTools, 'osintGrid');
+        populateGrid(pentestTools, 'pentestGrid');
+        populateGrid(ctfPlatforms, 'ctfGrid');
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const activeTab = document.querySelector('.tab-content.active');
+            const cards = activeTab.querySelectorAll('.tool-card');
+            
+            cards.forEach(card => {
+                const name = card.dataset.name;
+                const desc = card.dataset.desc;
+                const category = card.dataset.category;
+                
+                if (name.includes(searchTerm) || desc.includes(searchTerm) || category.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
